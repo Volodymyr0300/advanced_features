@@ -1,6 +1,6 @@
 fn main() {
-    // Unsafe rust
-    // Dereferencing a Raw Pointer
+    // ! Unsafe rust
+    // dereferencing a Raw Pointer
     {
         let mut num = 5;
     
@@ -103,7 +103,7 @@ fn main() {
             // method implementations go here
         }
     }
-    // Advanced traits
+    // ! Advanced traits
     // defining traits with associated types
     {
         trait _Iterator {
@@ -194,7 +194,7 @@ fn main() {
         }
         println!("Millimeters + Meters = {:?}", Millimeters(500) + Meters(2));
     }
-    // Disambiguating between identically named methods
+    // disambiguating between identically named methods
     {
         trait Pilot {
             fn fly(&self);
