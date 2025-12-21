@@ -299,4 +299,57 @@ fn main() {
         println!("w = {w}");
     }
     {}
+    // ! Advanced types
+    // type synonyms and types aliases
+    {
+        type Kilometers = i32;
+
+        let x: i32 = 5;
+        let y: Kilometers = 5;
+
+        println!("x + y = {}", x + y);
+    }
+    {
+        let _f: Box<dyn Fn() + Send + 'static> = Box::new(|| println!("hi")); // type annotation is necessary
+        println!("f created.");
+
+        fn _takes_long_type(_f: Box<dyn Fn() + Send + 'static>) { // type annotation is necessary
+            // --snip--
+        }
+        println!("calling takes_long_type...");
+
+        fn _returns_long_type() -> Box<dyn Fn() + Send + 'static> { // type annotation is necessary
+            // --snip--
+            Box::new(|| ()) // placeholder implementation
+        }
+        println!("calling returns_long_type...");
+    }
+    {
+        type Thunk = Box<dyn Fn() + Send + 'static>; // type alias definition
+
+        let f: Thunk = Box::new(|| println!("hi")); // using the type alias
+
+        fn _takes_long_type(f: Thunk) {
+            // --snip--
+        }
+
+        /*
+        fn returns_long_type() -> Thunk {
+            // --snip--
+        }
+        */
+    }
+    {
+        use std::fmt;
+        
+        type Result<T> = std::result::Result<T, Error>;
+
+        pub trait Write {
+            fn write(&mut self, buf: &[u8]) -> Result<usize>;
+            fn flush(&mut self) -> Result<usize>;
+
+            fn write_all(&mut self, buf: &[u8]) -> Result<()>;
+            fn write_fmt(&mut self, fmt: fmt::Arguments) -> Result<()>;
+        }
+    }
 }
